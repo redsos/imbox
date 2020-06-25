@@ -78,7 +78,9 @@ def decode_param(param):
                 value = quopri.decodestring(code)
             elif type_ == 'B':
                 value = base64.decodebytes(code.encode())
-            value = str_encode(value, encoding)
+            # value = str_encode(value, encoding)
+            # 修复 UnicodeError 问题
+            value = str_encode(value, encoding, 'ignore')
             value_results.append(value)
             if value_results:
                 v = ''.join(value_results)
@@ -90,6 +92,8 @@ def parse_attachment(message_part):
     # Check again if this is a valid attachment
     content_disposition = message_part.get("Content-Disposition", None)
     if content_disposition is not None and not message_part.is_multipart():
+        # 解决HTML实体字符文件名, 防止 content_disposition.split(";") 切割错误
+        content_disposition = html.unescape(conten_disposition)
         dispositions = [
             disposition.strip()
             for disposition in content_disposition.split(";")
