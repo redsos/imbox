@@ -120,7 +120,9 @@ def parse_attachment(message_part):
                     if s_name[0] == 'filename':
                         # If this is a split file name - use the number after the * as an index to insert this part
                         if len(s_name) > 1:
-                            filename_parts.insert(int(s_name[1]),value[1:-1] if value.startswith('"') else value)
+                            # filename_parts.insert(int(s_name[1]),value[1:-1] if value.startswith('"') else value)
+                            # 解决 s_name[1] 为空导致 int(s_name[1])异常的问题
+                            filename_parts.insert(int(s_name[1]) if s_name[1] else 0,value[1:-1] if value.startswith('"') else value)
                         else:
                             filename_parts.insert(0,value[1:-1] if value.startswith('"') else value)
 
