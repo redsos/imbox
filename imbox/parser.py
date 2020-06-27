@@ -97,7 +97,7 @@ def parse_attachment(message_part):
         content_disposition = html.unescape(conten_disposition)
         dispositions = [
             disposition.strip()
-            for disposition in content_disposition.split(";")
+            for disposition in content_disposition.split(";\n") # RFC 1341MIME
             if disposition.strip()
         ]
 
