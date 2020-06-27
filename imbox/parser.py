@@ -75,6 +75,7 @@ def decode_param(param):
         if match:
             encoding, type_, code = match.groups()
             if type_ == 'Q':
+                code = ''.join(' ' if ord(c) == 160 else c for c in code) # ord(' ') == 160 vs ord(' ') == 32
                 value = quopri.decodestring(code)
             elif type_ == 'B':
                 value = base64.decodebytes(code.encode())
