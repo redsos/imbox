@@ -15,6 +15,7 @@ def str_decode(value='', encoding=None, errors='strict'):
         _encoding = 'cp874' if encoding == 'windows-874' else encoding
         # return value.decode(encoding or 'utf-8', errors=errors)
         # 解决 viscii 编码异常
-        return value.decode(_encoding or 'utf-8', errors='ignore' if encoding=='viscii' else errors)
+        _encoding = 'utf-8' if _encoding == 'viscii' else _encoding
+        return value.decode(_encoding or 'utf-8', errors=errors)
     else:
         raise TypeError("Cannot decode '{}' object".format(value.__class__))
