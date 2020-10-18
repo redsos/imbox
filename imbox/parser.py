@@ -7,6 +7,9 @@ import base64
 import quopri
 import sys
 import time
+
+import html # add By Jandy, 2020/06/26
+
 from datetime import datetime
 from email.header import decode_header
 from imbox.utils import str_encode, str_decode
