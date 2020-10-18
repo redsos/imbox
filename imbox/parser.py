@@ -97,7 +97,7 @@ def parse_attachment(message_part):
     content_disposition = message_part.get("Content-Disposition", None)
     if content_disposition is not None and not message_part.is_multipart():
         # 解决HTML实体字符文件名, 防止 content_disposition.split(";") 切割错误
-        content_disposition = html.unescape(conten_disposition)
+        content_disposition = html.unescape(content_disposition)
         dispositions = [
             disposition.strip()
             for disposition in content_disposition.split(";\n") # RFC 1341MIME
